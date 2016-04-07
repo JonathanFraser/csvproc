@@ -1,43 +1,20 @@
 {
   "pipeline": {
-    "name": "filter"
+    "name": "fake_data_process"
   },
   "transform": {
+    "image" : "jonathanfraser/convertcsv",
     "cmd": [ "sh" ],
     "stdin": [
-        "grep apple  /pfs/data/sales >/pfs/out/apple",
-        "grep banana /pfs/data/sales >/pfs/out/banana",
-        "grep orange /pfs/data/sales >/pfs/out/orange"
+        "./process_folder.sh /pfs/data/fake_data_test /pfs/out"
     ]
   },
   "shards": "1",
   "inputs": [
     {
       "repo": {
-        "name": "data"
+        "name": "fake_data_test"
       }
-    }
-  ]
-}
-{
-  "pipeline": {
-    "name": "sum"
-  },
-  "transform": {
-    "cmd": [ "sh" ],
-    "stdin": [
-        "cut -f 2 /pfs/filter/apple | awk '{s+=$1} END {print s}' >/pfs/out/apple",
-        "cut -f 2 /pfs/filter/banana | awk '{s+=$1} END {print s}' >/pfs/out/banana",
-        "cut -f 2 /pfs/filter/orange | awk '{s+=$1} END {print s}' >/pfs/out/orange"
-    ]
-  },
-  "shards": "1",
-  "inputs": [
-    {
-      "repo": {
-        "name": "filter"
-      },
-	  "reduce": true
     }
   ]
 }
