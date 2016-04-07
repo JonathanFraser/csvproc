@@ -6,7 +6,7 @@
     "image" : "jonathanfraser/convertcsv",
     "cmd": [ "sh" ],
     "stdin": [
-        "./process_folder.sh /pfs/data/fake_data_test /pfs/out"
+        "./folder_process.sh /pfs/fake_data_test /pfs/out"
     ]
   },
   "shards": "1",
